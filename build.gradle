@@ -1,0 +1,92 @@
+plugins {
+	id 'java'
+	id 'org.springframework.boot' version '3.3.1'
+	id 'io.spring.dependency-management' version '1.1.5'
+}
+
+group = 'com.kr'
+version = '0.0.1-SNAPSHOT'
+
+java {
+	toolchain {
+		languageVersion = JavaLanguageVersion.of(17)
+	}
+}
+
+configurations {
+	compileOnly {
+		extendsFrom annotationProcessor
+
+	}
+}
+
+configurations.all {
+	exclude group: 'commons-logging', module: 'commons-loggin'
+}
+
+repositories {
+	mavenCentral()
+}
+
+dependencies {
+	// Spring Boot starters
+	implementation('org.springframework.boot:spring-boot-starter-data-jdbc') {
+		exclude group: 'commons-logging', module: 'commons-logging'
+	}
+	implementation('org.springframework.boot:spring-boot-starter-web') {
+		exclude group: 'commons-logging', module: 'commons-logging'
+	}
+
+	// MyBatis starter for Spring Boot
+	implementation('org.mybatis.spring.boot:mybatis-spring-boot-starter:3.0.3') {
+		exclude group: 'commons-logging', module: 'commons-logging'
+	}
+
+	// Lombok
+	compileOnly 'org.projectlombok:lombok'
+	annotationProcessor 'org.projectlombok:lombok'
+
+	// Spring Boot DevTools for development only
+	developmentOnly 'org.springframework.boot:spring-boot-devtools'
+
+	// MySQL Connector
+	runtimeOnly 'com.mysql:mysql-connector-j:8.0.32'
+
+	// Firebase Admin SDK
+	implementation 'com.google.firebase:firebase-admin:8.1.0'
+
+	// Jackson for JSON processing
+	implementation 'com.fasterxml.jackson.core:jackson-databind:2.14.0'
+	implementation 'com.fasterxml.jackson.core:jackson-core:2.14.0'
+	implementation 'com.fasterxml.jackson.core:jackson-annotations:2.14.0'
+
+	// Spring Context Support
+	implementation 'org.springframework:spring-context-support:5.3.23'
+
+	// Annotations
+	implementation 'org.jetbrains:annotations:24.1.0'
+
+//	// Spring Security
+//	implementation 'org.springframework.boot:spring-boot-starter-security'
+//
+//	// Spring Security Crypto
+//	implementation 'org.springframework.security:spring-security-crypto:5.6.4'
+
+	// Spring Boot Test starters
+	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+
+	// JUnit Platform Launcher
+	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+
+	implementation ('org.apache.commons:commons-dbcp2:2.9.0')  {
+		exclude group: 'commons-logging', module: 'commons-logging'
+	}
+
+	// Spring JCL (Jakarta Commons Logging bridge)
+	implementation 'org.springframework:spring-jcl:5.3.23'
+}
+
+
+tasks.named('test') {
+	useJUnitPlatform()
+}
