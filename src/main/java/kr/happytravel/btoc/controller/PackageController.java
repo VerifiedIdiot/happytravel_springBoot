@@ -1,6 +1,7 @@
 package kr.happytravel.btoc.controller;
 
 import kr.happytravel.btoc.dto.CntPerCountryList;
+import kr.happytravel.btoc.dto.Top5Package;
 import kr.happytravel.btoc.service.PackageService;
 import lombok.RequiredArgsConstructor;
 import org.apache.logging.log4j.LogManager;
@@ -26,8 +27,20 @@ public class PackageController {
     @GetMapping("/country-count")
     public ResponseEntity<?> getPackageCnt(@RequestParam Map<String, Object> paramMap) {
         try {
-            logger.info("Received request with parameters: " + paramMap);
+            logger.info("Received request with parameters PACKAGE CNT: " + paramMap);
             List<CntPerCountryList> list = packageService.getCountByCountry(paramMap);
+            return ResponseEntity.ok(list);
+        } catch (Exception e) {
+            logger.error("An error occurred: " + e.getMessage(), e);
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(false);
+        }
+    }
+
+    @GetMapping("/top-packages")
+    public ResponseEntity<?> getTop5Package(@RequestParam Map<String, Object> paramMap) {
+        try {
+            logger.info("Received request with parameters , TOP 5 : " + paramMap);
+            List<Top5Package> list = packageService.getTop5Package(paramMap);
             return ResponseEntity.ok(list);
         } catch (Exception e) {
             logger.error("An error occurred: " + e.getMessage(), e);

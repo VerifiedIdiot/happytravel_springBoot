@@ -2,6 +2,7 @@ package kr.happytravel.btoc.service;
 
 import kr.happytravel.btoc.dao.PackageDao;
 import kr.happytravel.btoc.dto.CntPerCountryList;
+import kr.happytravel.btoc.dto.Top5Package;
 import lombok.RequiredArgsConstructor;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -20,5 +21,10 @@ public class PackageService {
     public List<CntPerCountryList> getCountByCountry(Map<String, Object> paramMap) throws Exception {
 
         return packageDao.getCountByCountry(paramMap);
+    }
+
+    public List<Top5Package> getTop5Package(Map<String, Object> paramMap) throws Exception {
+
+        return packageDao.getTop5Package(paramMap);
     }
 }
