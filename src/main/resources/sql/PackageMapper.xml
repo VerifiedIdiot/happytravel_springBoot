@@ -35,11 +35,15 @@
         p.PACKAGE_INFO,
         p.SALE_AMOUNT,
         p.SALE_PRICE,
-        DATEDIFF(p.END_DATE, p.START_DATE) AS days
+        DATEDIFF(p.END_DATE, p.START_DATE) AS days,
+        c.KOREAN_NAME as countryName,
+        h.REGION
         FROM
         TB_PACKAGE_INFO p
         JOIN
         TB_COUNTRY_INFO c ON p.COUNTRY_CODE = c.COUNTRY_CODE
+        JOIN
+        TB_HOTEL_INFO h ON p.HOTEL_CODE = h.HOTEL_CODE
         WHERE
         c.COUNTRY_IMAGE IS NOT NULL
         AND p.ASSIGN_CODE = '2000'

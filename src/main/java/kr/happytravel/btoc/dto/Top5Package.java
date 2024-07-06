@@ -20,6 +20,8 @@ public class Top5Package {
     private String packageName;
     private String countryImage;
     private String packageInfo;
+    private String countryName;
+    private String region;
     private int days;
     private int saleAmount;
     private int salePrice;
