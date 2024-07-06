@@ -22,6 +22,8 @@ public class HotelDto {
     private String country;
     private String address;
     private int price;
+    private int star;
+    private String detail;
     private String isUsed;
     private String imageUrl;
 }

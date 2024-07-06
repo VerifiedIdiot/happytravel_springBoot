@@ -33,8 +33,24 @@ public class HotelController {
         }
     }
 
+    @GetMapping("/hotel-count")
+    public ResponseEntity<?> getHotelCnt(@RequestParam(required = true) Map<String, Object> paramMap) {
+        try {
+            logger.info("Received request with parameters: " + paramMap);
+            int result = hotelService.getHotelCnt(paramMap);
+            if (result == 0) {
+                logger.warn("HotelCnt not found with parameters: " + paramMap);
+                return ResponseEntity.status(HttpStatus.NOT_FOUND).body(false);
+            }
+            return ResponseEntity.ok(result);
+        } catch (Exception e) {
+            logger.error("An error occurred: " + e.getMessage(), e);
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(false);
+        }
+    }
+
     @GetMapping("/country-count")
-    public ResponseEntity<?> getHotelCnt(@RequestParam Map<String, Object> paramMap) {
+    public ResponseEntity<?> getCountryCnt(@RequestParam Map<String, Object> paramMap) {
         try {
             logger.info("Received request with parameters: " + paramMap);
             List<CntPerCountryList> list = hotelService.getCountByCountry(paramMap);

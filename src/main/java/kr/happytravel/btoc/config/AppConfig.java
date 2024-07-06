@@ -1,7 +1,7 @@
 package kr.happytravel.btoc.config;
 
 import kr.happytravel.btoc.common.GlobalExceptionHandler;
-import kr.happytravel.btoc.config.FirebaseInitializer;
+//import kr.happytravel.btoc.config.FirebaseInitializer;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -13,8 +13,8 @@ public class AppConfig {
         return new GlobalExceptionHandler();
     }
 
-    @Bean
-    public FirebaseInitializer firebaseInitializer() {
-        return new FirebaseInitializer();
-    }
+//    @Bean
+//    public FirebaseInitializer firebaseInitializer() {
+//        return new FirebaseInitializer();
+//    }
 }

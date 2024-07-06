@@ -12,6 +12,8 @@
         c.KOREAN_NAME AS COUNTRY,
         h.ADDRESS,
         h.PRICE,
+        h.DETAIL,
+        h.STAR,
         h.IS_USED,
         h.imageUrl
         FROM
@@ -20,11 +22,23 @@
         WHERE
         c.COUNTRY_IMAGE IS NOT NULL
         AND h.IS_USED = 'Y'
-        GROUP BY
-        c.COUNTRY_CODE, c.KOREAN_NAME, c.COUNTRY_IMAGE
         ORDER BY
         c.COUNTRY_CODE
+        LIMIT #{limit} OFFSET #{offset}
     </select>
+
+
+    <!-- 전체 목록 카운트 -->
+    <select id="getHotelCnt" resultType="int" parameterType="hashmap">
+        SELECT COUNT(hotel_code)
+        FROM TB_HOTEL_INFO
+        WHERE 1=1
+        AND is_used != 'N'
+        <if test="country_code != null">
+            AND country_code = #{country_code}
+        </if>
+    </select>
+
 
     <!-- 국가 조회-->
     <select id="getCountByCountry" resultType="kr.happytravel.btoc.dto.CntPerCountryList" parameterType="hashmap">
