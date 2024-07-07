@@ -24,5 +24,6 @@ public class Top5Package {
     private String region;
     private int days;
     private int saleAmount;
+    private int rating;
     private int salePrice;
 }

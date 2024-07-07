@@ -37,7 +37,8 @@
         p.SALE_PRICE,
         DATEDIFF(p.END_DATE, p.START_DATE) AS days,
         c.KOREAN_NAME as countryName,
-        h.REGION
+        h.REGION,
+        p.RATING
         FROM
         TB_PACKAGE_INFO p
         JOIN
