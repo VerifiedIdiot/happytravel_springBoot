@@ -23,6 +23,21 @@
         WHERE
         c.COUNTRY_IMAGE IS NOT NULL
         AND h.IS_USED = 'Y'
+        <if test="country != null and country != ''">
+            AND c.KOREAN_NAME = #{country}
+        </if>
+        <if test="minPrice != null">
+            AND h.PRICE &gt;= #{minPrice}
+        </if>
+        <if test="maxPrice != null">
+            AND h.PRICE &lt;= #{maxPrice}
+        </if>
+        <if test="startDate != null">
+            AND h.AVAILABLE_FROM &gt;= #{startDate}
+        </if>
+        <if test="endDate != null">
+            AND h.AVAILABLE_TO &lt;= #{endDate}
+        </if>
         ORDER BY
         c.COUNTRY_CODE
 <!--        LIMIT #{limit} OFFSET #{offset}-->

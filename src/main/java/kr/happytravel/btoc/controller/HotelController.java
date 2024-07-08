@@ -60,4 +60,27 @@ public class HotelController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(false);
         }
     }
+
+    @GetMapping("/search")
+    public ResponseEntity<?> searchHotels(
+            @RequestParam(required = false) String country,
+            @RequestParam(required = false) Integer minPrice,
+            @RequestParam(required = false) Integer maxPrice,
+            @RequestParam(required = false) String startDate,
+            @RequestParam(required = false) String endDate
+    ) {
+        logger.info("searchHotels called with parameters: country={}, minPrice={}, maxPrice={}, startDate={}, endDate={}",
+                country, minPrice, maxPrice, startDate, endDate);
+        try {
+            List<HotelDto> hotels = hotelService.getHotelList(country, minPrice, maxPrice, startDate, endDate);
+            logger.info("Hotels found: {}", hotels.size());
+            return ResponseEntity.ok(hotels);
+        } catch (Exception e) {
+            logger.error("Error occurred while searching for hotels: ", e);
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Internal server error");
+        }
+    }
+
+
+
 }
