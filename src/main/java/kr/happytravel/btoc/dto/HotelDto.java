@@ -20,6 +20,7 @@ public class HotelDto {
     private String phone;
     private String countryCode;
     private String country;
+    private String region;
     private String address;
     private int price;
     private int star;

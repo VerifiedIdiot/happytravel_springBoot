@@ -28,8 +28,8 @@ public class HotelService {
 
     public List<HotelDto> getHotelList(Map<String, Object> paramMap) throws Exception {
 
-        paramMap.put("limit", Integer.parseInt(paramMap.get("limit").toString()));
-        paramMap.put("offset", Integer.parseInt(paramMap.get("offset").toString()));
+//        paramMap.put("limit", Integer.parseInt(paramMap.get("limit").toString()));
+//        paramMap.put("offset", Integer.parseInt(paramMap.get("offset").toString()));
 
         return hotelDao.getHotelList(paramMap);
     }

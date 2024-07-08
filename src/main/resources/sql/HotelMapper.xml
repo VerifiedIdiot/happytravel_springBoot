@@ -12,6 +12,7 @@
         c.KOREAN_NAME AS COUNTRY,
         h.ADDRESS,
         h.PRICE,
+        h.REGION,
         h.DETAIL,
         h.STAR,
         h.IS_USED,
@@ -24,7 +25,7 @@
         AND h.IS_USED = 'Y'
         ORDER BY
         c.COUNTRY_CODE
-        LIMIT #{limit} OFFSET #{offset}
+<!--        LIMIT #{limit} OFFSET #{offset}-->
     </select>
 
 
