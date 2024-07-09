@@ -54,8 +54,60 @@
         LIMIT 5
     </select>
 
+    <select id="getPackageList" resultType="kr.happytravel.btoc.dto.PackageDTO" parameterType="hashmap">
+        SELECT
+        p.PACKAGE_CODE,
+        p.PACKAGE_NAME,
+        c.COUNTRY_IMAGE,
+        p.PACKAGE_INFO,
+        p.SALE_AMOUNT,
+        p.SALE_PRICE,
+        DATEDIFF(p.END_DATE, p.START_DATE) AS days,
+        c.KOREAN_NAME as countryName,
+        h.REGION,
+        p.RATING
+        FROM
+        TB_PACKAGE_INFO p
+        JOIN
+        TB_COUNTRY_INFO c ON p.COUNTRY_CODE = c.COUNTRY_CODE
+        JOIN
+        TB_HOTEL_INFO h ON p.HOTEL_CODE = h.HOTEL_CODE
+        WHERE
+        c.COUNTRY_IMAGE IS NOT NULL
+        AND p.ASSIGN_CODE = '2000'
+        AND p.IS_USED = 'Y'
+        <if test="country != null">
+            AND c.KOREAN_NAME LIKE CONCAT('%', #{country}, '%')
+        </if>
+        <if test="region != null">
+            AND h.REGION LIKE CONCAT('%', #{region}, '%')
+        </if>
+        <if test="packageName != null">
+            AND p.PACKAGE_NAME LIKE CONCAT('%', #{packageName}, '%')
+        </if>
+        <if test="dateFrom != null and dateTo != null">
+            AND p.START_DATE &gt;= #{dateFrom}
+            AND p.END_DATE &lt;= #{dateTo}
+        </if>
+        <if test="minSalePrice != null and maxSalePrice != null">
+            AND p.SALE_PRICE BETWEEN #{minSalePrice} AND #{maxSalePrice}
+        </if>
+        ORDER BY
+        p.SALE_AMOUNT DESC
+        LIMIT #{limit} OFFSET #{offset}
+    </select>
 
     <!-- 전체 목록 카운트 -->
+    <select id="getPackageCnt" resultType="int" parameterType="hashmap">
+        SELECT COUNT(package_code)
+        FROM TB_PACKAGE_INFO
+        WHERE
+        AND IS_USED != 'N'
+        AND ASSIGN_CODE = 2000
+        <if test="packageName != null and packageName != ''">
+            AND PACKAGE_NAME LIKE CONCAT('%', #{packageName}, '%')
+        </if>
+    </select>
 
     <!-- 단건 조회 -->
 

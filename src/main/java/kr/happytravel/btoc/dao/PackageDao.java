@@ -1,5 +1,6 @@
 package kr.happytravel.btoc.dao;
 import kr.happytravel.btoc.dto.CntPerCountryList;
+import kr.happytravel.btoc.dto.PackageDTO;
 import kr.happytravel.btoc.dto.Top5Package;
 import org.apache.ibatis.annotations.Mapper;
 
@@ -11,4 +12,6 @@ public interface PackageDao {
     List<CntPerCountryList> getCountByCountry(Map<String, Object> paramMap) throws Exception;
 
     List<Top5Package> getTop5Package(Map<String, Object> paramMap) throws Exception;
+
+    List<PackageDTO> getPackageList(Map<String,Object> paramMap) throws Exception;
 }

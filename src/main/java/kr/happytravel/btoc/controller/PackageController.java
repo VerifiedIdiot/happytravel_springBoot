@@ -1,6 +1,7 @@
 package kr.happytravel.btoc.controller;
 
 import kr.happytravel.btoc.dto.CntPerCountryList;
+import kr.happytravel.btoc.dto.PackageDTO;
 import kr.happytravel.btoc.dto.Top5Package;
 import kr.happytravel.btoc.service.PackageService;
 import lombok.RequiredArgsConstructor;
@@ -46,5 +47,18 @@ public class PackageController {
             logger.error("An error occurred: " + e.getMessage(), e);
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(false);
         }
+    }
+
+    @GetMapping("/package-list")
+    public ResponseEntity<?> getPackageList(@RequestParam Map<String, Object> paramMap) {
+        try {
+            logger.info("Received request with parameters , PACKAGE LIST : " + paramMap);
+            List<PackageDTO> list = packageService.getPackageList(paramMap);
+            return ResponseEntity.ok(list);
+        } catch (Exception e) {
+            logger.error("An error occurred: " + e.getMessage(), e);
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(false);
+        }
+
     }
 }
